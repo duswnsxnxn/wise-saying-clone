@@ -1,13 +1,12 @@
 package com.yeokim;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Scanner;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTests {
 
@@ -33,13 +32,7 @@ public class AppTests {
     @Test
     @DisplayName("프로그램 시작시 타이틀 출력 그리고 종료")
     public void t3() {
-        Scanner sc = TestUtil.genScanner("종료1");
-        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
-
-        new App(sc).run();
-
-        String s = output.toString();
-        TestUtil.clearSetOutToByteArray(output);
+        String s = AppTestRunner.run("종료");
 
         assertThat(s)
                 .contains("== 명언 앱 ==")
@@ -51,13 +44,7 @@ public class AppTests {
     @Test
     @DisplayName("잘못된 명령어 입력에 대한 처리")
     public void t4() {
-        Scanner sc = TestUtil.genScanner("종료2");
-        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
-
-        new App(sc).run();
-
-        String s = output.toString();
-        TestUtil.clearSetOutToByteArray(output);
+        String s = AppTestRunner.run("종료2");
 
         assertThat(s)
                 .contains("올바르지 않은 명령입니다.");
