@@ -29,4 +29,37 @@ public class AppTests {
         TestUtil.clearSetOutToByteArray(output);
         assertThat(s).isEqualTo("안녕");
     }
+
+    @Test
+    @DisplayName("프로그램 시작시 타이틀 출력 그리고 종료")
+    public void t3() {
+        Scanner sc = TestUtil.genScanner("종료1");
+        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
+
+        new App(sc).run();
+
+        String s = output.toString();
+        TestUtil.clearSetOutToByteArray(output);
+
+        assertThat(s)
+                .contains("== 명언 앱 ==")
+                .contains("명령) ")
+                .contains("프로그램이 종료되었습니다.")
+                .doesNotContain("올바르지 않은 명령입니다.");
+    }
+
+    @Test
+    @DisplayName("잘못된 명령어 입력에 대한 처리")
+    public void t4() {
+        Scanner sc = TestUtil.genScanner("종료2");
+        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
+
+        new App(sc).run();
+
+        String s = output.toString();
+        TestUtil.clearSetOutToByteArray(output);
+
+        assertThat(s)
+                .contains("올바르지 않은 명령입니다.");
+    }
 }
